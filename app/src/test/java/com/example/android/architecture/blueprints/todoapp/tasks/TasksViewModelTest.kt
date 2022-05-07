@@ -3,6 +3,8 @@ package com.example.android.architecture.blueprints.todoapp.tasks
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.example.android.architecture.blueprints.todoapp.data.Task
+import com.example.android.architecture.blueprints.todoapp.data.source.FakeTestRepository
 import com.example.android.architecture.blueprints.todoapp.getOrAwaitValue
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.not
@@ -58,18 +60,25 @@ try {
 https://medium.com/androiddevelopers/unit-testing-livedata-and-other-common-observability-problems-bb477262eb04
 */
 
-@RunWith(AndroidJUnit4::class)
 class TasksViewModelTest {
 
     //Subject under test
     private lateinit var tasksViewModel: TasksViewModel
+    private lateinit var tasksRepository: FakeTestRepository
 
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
 
     @Before
     fun setupViewModel() {
-        tasksViewModel = TasksViewModel(ApplicationProvider.getApplicationContext())
+        tasksRepository = FakeTestRepository()
+        val task1 = Task("Title1", "Description1")
+        val task2 = Task("Title2", "Description2")
+        val task3 = Task("Title3", "Description3")
+
+        tasksRepository.addTasks(task1, task2, task3)
+
+        tasksViewModel = TasksViewModel(tasksRepository)
     }
 
     @Test
