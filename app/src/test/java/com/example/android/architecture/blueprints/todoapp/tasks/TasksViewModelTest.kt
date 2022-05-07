@@ -1,10 +1,8 @@
 package com.example.android.architecture.blueprints.todoapp.tasks
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.Observer
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.android.architecture.blueprints.todoapp.Event
 import com.example.android.architecture.blueprints.todoapp.getOrAwaitValue
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.not
@@ -73,7 +71,6 @@ class TasksViewModelTest {
     fun setupViewModel() {
         tasksViewModel = TasksViewModel(ApplicationProvider.getApplicationContext())
     }
-
 
     @Test
     fun addNewTask_setsNewTakEvent() {
