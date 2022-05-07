@@ -29,6 +29,10 @@ android {
     testOptions.unitTests {
         includeAndroidResources = true
     }
+
+    packagingOptions {
+        resources.excludes.add("META-INF/*")
+    }
 }
 
 dependencies {
